@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        :root {
+            --bg: #f8fafc;
+            --text: #0f172a;
+            --muted: #475569;
+            --surface: #ffffff;
+            --surface-2: #f1f5f9;
+            --border: #e2e8f0;
+            --accent: #6366f1;
+        }
+
+        * { box-sizing: border-box; }
+
+        html, body { height: 100%; }
+
+        body {
+            margin: 0;
+            padding: 24px;
+            background: var(--bg);
+            color: var(--text);
+            font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+            line-height: 1.5;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        h1 {
+            margin: 0 0 4px 0;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .status {
+            margin: 0 0 24px 0;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* Panels */
+        #tensor-1, #tensor-2, #tensor-3 {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            position: relative;
+        }
+
+        #tensor-1::before, #tensor-2::before, #tensor-3::before {
+            position: absolute;
+            top: -10px;
+            left: 12px;
+            content: "";
+            padding: 2px 8px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+        }
+
+        #tensor-1::before { content: "Example 1 · 1D: ys = xs × 5"; }
+        #tensor-2::before { content: "Example 2 · 2D: xs and ys = xs × 5"; }
+        #tensor-3::before { content: "Example 3 · 2D: ys = xs20 + xs21"; }
+
+        /* Layout inside panels */
+        #tensor-2 {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        #tensor-3 {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        @media (max-width: 800px) {
+            #tensor-2 { grid-template-columns: 1fr; }
+            #tensor-3 { grid-template-columns: 1fr; }
+        }
+
+        /* Tensor boxes */
+        #tensor-1,
+        #tensor-2 > div,
+        #tensor-3 > div {
+            white-space: pre-wrap;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            font-size: 13px;
+        }
+
+        #tensor-2 > div,
+        #tensor-3 > div {
+            background: var(--surface-2);
+            border: 1px dashed var(--border);
+            border-radius: 8px;
+            padding: 12px;
+            position: relative;
+        }
+
+        #tensor-2-1::before,
+        #tensor-2-2::before,
+        #tensor-3-1::before,
+        #tensor-3-2::before,
+        #tensor-3-3::before {
+            position: absolute;
+            top: -9px;
+            left: 10px;
+            padding: 1px 6px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--muted);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            content: "";
+        }
+
+        #tensor-2-1::before { content: "xs"; }
+        #tensor-2-2::before { content: "ys"; }
+        #tensor-3-1::before { content: "xs20"; }
+        #tensor-3-2::before { content: "xs21"; }
+        #tensor-3-3::before { content: "ys"; }
+    </style>
+</head>
+<body>
+    <h1>TensorFlow.js · Basic tensor operations</h1>
+    <p class="status">Tensors in memory: <span id="tensor-count">-</span></p>
+
+    <div id="tensor-1"></div>
+    <div id="tensor-2">
+        <div id="tensor-2-1"></div>
+        <div id="tensor-2-2"></div>
+    </div>
+    <div id="tensor-3">
+        <div id="tensor-3-1"></div>
+        <div id="tensor-3-2"></div>
+        <div id="tensor-3-3"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>
